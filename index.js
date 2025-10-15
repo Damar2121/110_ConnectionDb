@@ -16,6 +16,26 @@ app.post('/mahasiswa', (req, res) => {
     });
 });
 
+app.get('/mahasiswa', (req, res) => {
+    const sql = "SELECT * FROM biodata"; 
+
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error('Error querying database: ' + err.stack);
+            res.status(500).json({ 
+                message: "Error mengambil data dari database", 
+                error: err 
+            });
+            return;
+        }
+
+        res.status(200).json({
+            message: "Data mahasiswa berhasil diambil",
+            data: results
+        });
+    });
+});
+
 app.get('/', (req, res) => {
     res.send('Hello World!');
 })
